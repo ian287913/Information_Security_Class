@@ -17,3 +17,7 @@ void RailFence(string text, int key);
 vector<int> StringToAlphabet(string);
 
 string AlphabetToString(vector<int>);
+
+static string toUpper(string text);
+
+static string toLower(string text);

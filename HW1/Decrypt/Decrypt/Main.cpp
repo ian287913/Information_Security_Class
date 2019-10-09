@@ -1,6 +1,10 @@
 #include"Decrypt.h"
 using namespace std;
-// caesar 5 DOYOURBESTANDTHENLETGO
+// caesar 7 RLLWNVPUNULCLYNPCLBW						-----keepgoingnevergiveup
+// playfair PLAYFAIREXAMPLE BMODZBXDNABEKUDMUIXMMOUVIF	-----hidethegoldinthetreestump
+// vernam QUEENLY QHXEPBYTQTWP							-----attackatdawn
+// row 4312567 TTNAAPTMTSUOAODWCOIXKNLYPETZ				-----attackpostponeduntiltwoamxyz
+// rail_fence 3 TIETSHSSSCEMSAEIAREG					-----thisisasecretmessage
 int main(int argc, char *argv[])
 {
 	const string type[5] = { 
@@ -28,11 +32,12 @@ int main(int argc, char *argv[])
 	}
 
 	int numberKey;
-	numberKey = stoi(key);
+	
 	switch (typeNum)
 	{
 	case 0:
 		// caesar
+		numberKey = stoi(key);
 		Caesar(cipherText, numberKey);
 		break;
 	case 1:
@@ -49,6 +54,7 @@ int main(int argc, char *argv[])
 		break;
 	case 4:
 		// rail_fence
+		numberKey = stoi(key);
 		RailFence(cipherText, numberKey);
 		break;
 	default:
