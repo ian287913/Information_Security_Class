@@ -4,7 +4,7 @@
 using namespace std;
 
 
-string toUpper(string text)
+static string toUpper(string text)
 {
 	for (int i = 0; i < text.size(); i++)
 	{
@@ -14,7 +14,7 @@ string toUpper(string text)
 	return text;
 }
 
-string toLower(string text)
+static string toLower(string text)
 {
 	for (int i = 0; i < text.size(); i++)
 	{
@@ -27,23 +27,12 @@ string toLower(string text)
 class Encoder
 {
 public:
-	Encoder();
-	~Encoder();
-
 	string Caesar(string _key, string _plaintext);
 	string Playfair(string _key, string _plaintext);
 	string Vernam(string _key, string _plaintext);
 	string RowTransposition(string _key, string _plaintext);
-	
+	string RailFence(string _key, string _plaintext);
 };
-
-Encoder::Encoder()
-{
-}
-
-Encoder::~Encoder()
-{
-}
 
 //	(Alphabets only)
 string Encoder::Caesar(string _key, string _plaintext)
@@ -60,28 +49,29 @@ string Encoder::Caesar(string _key, string _plaintext)
 //	(Alphabets only)
 string Encoder::Playfair(string _key, string _plaintext)
 {
+	string key = toLower(_key);
 	//	create a matrix
 	string matrix = "abcdefghiklmnopqrstuvwxyz";
 	//	refine key
-	for (int i = 0; i < _key.size(); i++)
+	for (int i = 0; i < key.size(); i++)
 	{
-		if (_key[i] == 'j')
-			_key[i] = 'i';
+		if (key[i] == 'j')
+			key[i] = 'i';
 		for (int j = 0; j < i; j++)
 		{
-			if (_key[i] == _key[j])
+			if (key[i] == key[j])
 			{
-				_key.erase(_key.begin() + i);
+				key.erase(key.begin() + i);
 				i--;
 				break;
 			}
 		}
 	}
 	//	init matrix
-	for (int i = _key.size() - 1; i >= 0; i--)
+	for (int i = key.size() - 1; i >= 0; i--)
 	{
-		matrix.erase(matrix.begin() + matrix.find(_key[i]));
-		matrix.insert(matrix.begin(), _key[i]);
+		matrix.erase(matrix.begin() + matrix.find(key[i]));
+		matrix.insert(matrix.begin(), key[i]);
 	}
 
 	//	deal with plaintext
@@ -147,6 +137,58 @@ string Encoder::Vernam(string _key, string _plaintext)
 
 string Encoder::RowTransposition(string _key, string _plaintext)
 {
+	string ciphertext = "";
+	for (int i = 1; i <= _key.size(); i++)
+	{
+		//	find the column number of current turn
+		for (int c = 0; c < _key.size(); c++)
+		{
+			
+			if (_key[c] == (i + '0'))
+			{
+				//	write the whole column into ciphertext
+				for (int r = 0;; r++)
+				{
+					int index = _key.size() * r + c;
+					if (index >= _plaintext.size())
+						break;
+					ciphertext += _plaintext[index];
+				}
+			}
+		}
+	}
 
+	return toUpper(ciphertext);
 }
 
+string Encoder::RailFence(string _key, string _plaintext)
+{
+	int key = stoi(_key);
+	string ciphertext = "";
+	string *texts = new string[key];
+	for (int i = 0; i < key; i++)
+	{
+		texts[i] = "";
+	}
+	//	devide text into N parts
+	int level = 0;
+	for (int i = 0; i < _plaintext.size(); i++)
+	{
+		int index = (level >= 0 ? level : (-level));
+		texts[index] += _plaintext[i];
+
+		if (level == (key - 1))
+			level = -level;
+		
+		level++;
+	}
+	//	append texts
+	for (int i = 0; i < key; i++)
+	{
+		ciphertext += texts[i];
+	}
+
+	delete [] texts;
+
+	return toUpper(ciphertext);
+}
