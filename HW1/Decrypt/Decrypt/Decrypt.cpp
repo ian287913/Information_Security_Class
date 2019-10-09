@@ -233,7 +233,39 @@ void Row(string text, string key)
 
 void RailFence(string text, int key)
 {
+	int rowLen = text.length() / key;
+	int addedRow = text.length() % key;
+	vector<vector<char>> plainTable = vector<vector<char>>();
 
+	int textIndex = 0;
+	for (int i = 0; i < key; i++)
+	{
+		vector<char> temp = vector<char>();
+		int rlen = rowLen + ((i < addedRow) ? 1 : 0);
+		for (int j = 0; j < rlen; j++) 
+		{
+			temp.push_back(text[textIndex]);
+			textIndex++;
+		}
+		plainTable.push_back(temp);
+	}
+
+	string output = "";
+	for (int i = 0; i < rowLen; i++)
+	{
+		for (int j = 0; j < key; j++)
+		{
+			output += plainTable[j][i];
+		}
+	}
+	if (addedRow != 0)
+	{
+		for (int i = 0; i < addedRow; i++)
+		{
+			output += plainTable[i][rowLen];
+		}
+	}
+	cout << toLower(output);
 }
 
 vector<int> StringToAlphabet(string input)

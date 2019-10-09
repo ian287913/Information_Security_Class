@@ -1,10 +1,11 @@
 #include"Decrypt.h"
 using namespace std;
+// Test:
 // caesar 7 RLLWNVPUNULCLYNPCLBW						-----keepgoingnevergiveup
 // playfair PLAYFAIREXAMPLE BMODZBXDNABEKUDMUIXMMOUVIF	-----hidethegoldinthetreestump
 // vernam QUEENLYATTAC QHXEPBYTQTWP						-----attackatdawn
 // row 4312567 TTNAAPTMTSUOAODWCOIXKNLYPETZ				-----attackpostponeduntiltwoamxyz
-// rail_fence 3 TIETSHSSSCEMSAEIAREG					-----thisisasecretmessage
+// rail_fence 2 MEMATRHTGPRYETEFETEOAAT					-----thisisasecretmessage 
 int main(int argc, char *argv[])
 {
 	const string type[5] = { 
@@ -14,12 +15,9 @@ int main(int argc, char *argv[])
 		"row",
 		"rail_fence" 
 	};
-	string cipherType = "";
-	string key = "";
-	string cipherText = "";
-
-	cout << "Debug Input: ";
-	cin >> cipherType >> key >> cipherText;
+	string cipherType = argv[1];
+	string key = argv[2];
+	string cipherText = argv[3];
 
 	int typeNum = -1;
 	for (int typeIndex = 0; typeIndex < 5; typeIndex++)
@@ -61,6 +59,5 @@ int main(int argc, char *argv[])
 		cout << "Invalid Cipher Input!" << endl;
 		break;
 	}
-	system("pause");
 	return 0;
 }
