@@ -15,6 +15,16 @@ string toUpper(string text)
 	return text;
 }
 
+string toLower(string text)
+{
+	for (int i = 0; i < text.size(); i++)
+	{
+		if (text[i] >= 'A' && text[i] <= 'Z')
+			text[i] = text[i] + 'a' - 'A';
+	}
+	return text;
+}
+
 class Encoder
 {
 public:
@@ -23,6 +33,9 @@ public:
 
 	string Caesar(string _key, string _plaintext);
 	string Playfair(string _key, string _plaintext);
+	string Vernam(string _key, string _plaintext);
+	string RowTransposition(string _key, string _plaintext);
+	
 };
 
 Encoder::Encoder()
@@ -117,5 +130,24 @@ string Encoder::Playfair(string _key, string _plaintext)
 	}
 
 	return toUpper(ciphertext);
+}
+
+//	(Alphabets only)
+string Encoder::Vernam(string _key, string _plaintext)
+{
+	string key = toLower(_key + _plaintext);
+	string ciphertext = _plaintext;
+
+	for (int i = 0; i < _plaintext.size(); i++)
+	{
+		ciphertext[i] = ((key[i] - 'a') ^ (_plaintext[i] - 'a')) + 'a';
+	}
+
+	return toUpper(ciphertext);
+}
+
+string Encoder::RowTransposition(string _key, string _plaintext)
+{
+
 }
 
