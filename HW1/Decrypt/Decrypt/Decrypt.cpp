@@ -149,10 +149,23 @@ void Playfair(string text, string key)
 
 void Vernam(string text, string key)
 {
+	if (text.length() != key.length())
+	{
+		cout << "Wrong Key!";
+		return;
+	}
+	string output = "";
+	for (int i = 0; i < text.length(); i++)
+	{
+		output += ((text[i] - 65) ^ (key[i] - 65)) + 65;
+	}
+	output = toLower(output);
+	cout << output;
 }
 
 void Row(string text, string key)
 {
+
 }
 
 void RailFence(string text, int key)

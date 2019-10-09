@@ -2,7 +2,7 @@
 using namespace std;
 // caesar 7 RLLWNVPUNULCLYNPCLBW						-----keepgoingnevergiveup
 // playfair PLAYFAIREXAMPLE BMODZBXDNABEKUDMUIXMMOUVIF	-----hidethegoldinthetreestump
-// vernam QUEENLY QHXEPBYTQTWP							-----attackatdawn
+// vernam QUEENLYATTAC QHXEPBYTQTWP							-----attackatdawn
 // row 4312567 TTNAAPTMTSUOAODWCOIXKNLYPETZ				-----attackpostponeduntiltwoamxyz
 // rail_fence 3 TIETSHSSSCEMSAEIAREG					-----thisisasecretmessage
 int main(int argc, char *argv[])

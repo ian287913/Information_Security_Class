@@ -4,6 +4,7 @@ d:\work(will)\school\intro to info security\hw01\information_security_class\hw1\
 d:\work(will)\school\intro to info security\hw01\information_security_class\hw1\decrypt\decrypt\decrypt.cpp(49): warning C4018: '>=': signed/unsigned 不相符
 d:\work(will)\school\intro to info security\hw01\information_security_class\hw1\decrypt\decrypt\decrypt.cpp(56): warning C4018: '<': signed/unsigned 不相符
 d:\work(will)\school\intro to info security\hw01\information_security_class\hw1\decrypt\decrypt\decrypt.cpp(100): warning C4018: '<': signed/unsigned 不相符
-d:\work(will)\school\intro to info security\hw01\information_security_class\hw1\decrypt\decrypt\decrypt.cpp(204): warning C4018: '<': signed/unsigned 不相符
-d:\work(will)\school\intro to info security\hw01\information_security_class\hw1\decrypt\decrypt\decrypt.cpp(214): warning C4018: '<': signed/unsigned 不相符
+d:\work(will)\school\intro to info security\hw01\information_security_class\hw1\decrypt\decrypt\decrypt.cpp(158): warning C4018: '<': signed/unsigned 不相符
+d:\work(will)\school\intro to info security\hw01\information_security_class\hw1\decrypt\decrypt\decrypt.cpp(216): warning C4018: '<': signed/unsigned 不相符
+d:\work(will)\school\intro to info security\hw01\information_security_class\hw1\decrypt\decrypt\decrypt.cpp(226): warning C4018: '<': signed/unsigned 不相符
   Decrypt.vcxproj -> D:\Work(Will)\School\Intro to Info Security\HW01\Information_Security_Class\HW1\Decrypt\Debug\Decrypt.exe
