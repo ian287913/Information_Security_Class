@@ -165,11 +165,75 @@ void Vernam(string text, string key)
 
 void Row(string text, string key)
 {
+	vector<vector<char>> plainTable = vector<vector<char>>();
+	int rowLen = key.length();
+	int addRow = text.length() % rowLen;
+	int colLen = text.length() / rowLen;
+	vector<int> inverse = vector<int>();
+	for (int i = 0; i < rowLen; i++)
+	{
+		for (int j = 0; j < rowLen; j++)
+		{
+			if (i == (key[j] - 49))
+			{
+				inverse.push_back(j);
+				break;
+			}
+		}
+	}
+
+	for (int i = 0; i < colLen; i++)
+	{
+		vector<char> temp = vector<char>();
+		for (int j = 0; j < rowLen; j++)
+			temp.push_back('*');
+		plainTable.push_back(temp);
+	}
+	if (addRow != 0)
+	{
+		vector<char> temp = vector<char>();
+		for (int j = 0; j < addRow; j++)
+			temp.push_back('*');
+	}
+	for (int c = 0; c < rowLen; c++)
+	{
+		int maxLen = colLen;
+		if (c < addRow)
+			maxLen++;
+
+		// find the column
+		int order = key[c] - 49;
+		int startIndex = 0;
+		for (int i = 0; i < order; i++)
+		{
+			startIndex += colLen;
+			if (inverse[i] < addRow)
+				startIndex++;
+		}
+
+		for (int r = 0; r < maxLen; r++)
+		{
+			// build that column
+			plainTable[r][c] = text[startIndex];
+			startIndex++;
+		}
+	}
+
+	string output = "";
+	for (int i = 0; i < plainTable.size(); i++)
+	{
+		for (int j = 0; j < plainTable[i].size(); j++)
+		{
+			output += plainTable[i][j];
+		}
+	}
+	cout << toLower(output);
 
 }
 
 void RailFence(string text, int key)
 {
+
 }
 
 vector<int> StringToAlphabet(string input)
