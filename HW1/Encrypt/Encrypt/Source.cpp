@@ -17,8 +17,9 @@ void main()
 
 	cout << encoder.Caesar("7", "keepgoingnevergiveup") << "\n";
 
-
 	cout << encoder.Playfair("playfairexample", "hidethegoldinthetreestump") << "\n";
+
+	cout << encoder.Vernam("queenly", "attackatdawn") << "\n";
 
 	
 	system("pause");
