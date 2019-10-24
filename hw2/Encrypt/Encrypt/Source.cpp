@@ -9,7 +9,7 @@ using namespace std;
 
 void Debug(Encoder &encoder)
 {
-	encoder.DES("0xAAAA333300001111", "");
+	cout << encoder.DES("0xafafafafafafafaf ", "0xabcdef0123456789") << endl;
 	///cout << encoder.Caesar("7", "keepgoingnevergiveup") << "\n";
 	//	RLLWNVPUNULCLYNPCLBW
 }
