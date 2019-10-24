@@ -50,7 +50,14 @@ public:
 		34, 2, 42, 10, 50, 18, 58, 26,
 		33, 1, 41, 9, 49, 17, 57, 25 };
 	int FP[32] = { 16, 7, 20, 21, 29, 12, 28, 17, 1, 15, 23, 26, 5, 18, 31, 10, 2, 8, 24, 14, 32, 27, 3, 9, 19, 13, 30, 6, 22, 11, 4, 25 };
-	int PC_1[56] = { 57, 49, 41, 33, 25, 17, 9, 1, 58, 50, 42, 34, 26, 18, 10, 2, 59, 51, 43, 35, 27, 19, 11, 3, 60, 52, 44, 36, 63, 55, 47, 39, 31, 23, 15, 7, 62, 54, 46, 38, 30, 22, 14, 6, 61, 53, 45, 37, 29, 21, 13, 5, 28, 20, 12, 4 };
+	int PC_1[56] = { 57, 49,  41, 33,  25,  17,  9,
+		1, 58,  50, 42,  34,  26, 18,
+		10,  2,  59, 51,  43,  35, 27,
+		19, 11,   3, 60,  52,  44, 36,
+		63, 55,  47, 39,  31,  23, 15,
+		7, 62,  54, 46,  38,  30, 22,
+		14,  6,  61, 53,  45,  37, 29,
+		21, 13,   5, 28,  20,  12,  4 };
 	int PC_2[48] = { 14, 17, 11, 24, 1, 5, 3, 28, 15, 6, 21, 10, 23, 19, 12, 4, 26, 8, 16, 7, 27, 20, 13, 2, 41, 52, 31, 37, 47, 55, 30, 40, 51, 45, 33, 48, 44, 49, 39, 56, 34, 53, 46, 42, 50, 36, 29, 32 };
 	int E[48] = {
 		32, 1, 2, 3, 4, 5, 4, 5, 6, 7, 8, 9, 8, 9, 10, 11, 12, 13, 12, 13, 14, 15, 16, 17, 16, 17, 18, 19, 20, 21, 20, 21, 22, 23, 24, 25, 24, 25, 26, 27, 28, 29, 28, 29, 30, 31, 32, 1
@@ -142,18 +149,20 @@ string Encoder::DES(string _key, string _plaintext)
 
 	///	<L0, R0> Split( InitialPermutation(Plaintext) )
 	bitset<64> bits64 = String2Bits(_plaintext);
-	cout << "_P: " << bits64.to_string() << endl;
 	bits64 = Permutation(bits64, IP);
+	cout << "_PP: " << bits64.to_string() << endl;
+
 	bitset<32> bits32L;
 	bitset<32> bits32R;
 
 	Bits64to32(bits64, bits32L, bits32R);
 
 	///	Transform1( PC-1(Key) )
-	cout << "_K: " << String2Bits(_key).to_string() << endl;
 
 	bitset<56> key56 = Permutation56(String2Bits(_key));
-	cout << "KEY: " << key56.to_string() << endl;
+	cout << "OKP: " << String2Bits(_key).to_string() << endl;
+
+	cout << "_KP: " << key56.to_string() << endl;
 
 
 	for (int i = 1; i <= 16; i++)
@@ -169,7 +178,6 @@ string Encoder::DES(string _key, string _plaintext)
 	///cout << "KEY: " << key56.to_string() << endl;
 
 	string s64 = bits32L.to_string() + bits32R.to_string();
-	cout << s64 << endl;
 	bits64 = bitset<64>(s64);
 
 	bits64 = Permutation(bits64, IP_inverse);
@@ -193,7 +201,7 @@ bitset<64> Encoder::Permutation(bitset<64> arr, int table[])
 	//	fill the content by match table
 	for (int i = 0; i < 64; i++)
 	{
-		arr_new[i] = arr[(table[i] - 1)];
+		arr_new[i] = arr[63-(table[i] - 1)];
 	}
 
 	return arr_new;
@@ -205,7 +213,7 @@ bitset<32> Encoder::Permutation32(bitset<32> arr, int table[])
 	//	fill the content by match table
 	for (int i = 0; i < 32; i++)
 	{
-		arr_new[i] = arr[(table[i] - 1)];
+		arr_new[i] = arr[31-(table[i] - 1)];
 	}
 
 	return arr_new;
@@ -217,9 +225,15 @@ bitset<56> Encoder::Permutation56(bitset<64> arr)
 	//	fill the content by match table
 	for (int i = 0; i < 56; i++)
 	{
-		arr_new[i] = arr[(PC_1[i] - 1)];
-	}
+		arr_new[i] = arr[63-(PC_1[i] - 1)];
 
+		cout << arr[(PC_1[i] - 1)];
+		if (i == 0)
+		{
+			///cout << (PC_1[i] - 1) << " - " << arr[(PC_1[i] - 1)] << endl;
+		}
+	}
+	cout << endl;
 	return arr_new;
 }
 bitset<48> Encoder::Permutation48(bitset<56> arr)
@@ -229,7 +243,7 @@ bitset<48> Encoder::Permutation48(bitset<56> arr)
 	//	fill the content by match table
 	for (int i = 0; i < 48; i++)
 	{
-		arr_new[i] = arr[(PC_2[i] - 1)];
+		arr_new[i] = arr[55-(PC_2[i] - 1)];
 	}
 
 	return arr_new;
@@ -241,7 +255,7 @@ bitset<48> Encoder::Expansion(bitset<32> arr, int table[])
 	//	fill the content by match table
 	for (int i = 0; i < 48; i++)
 	{
-		arr_new[i] = arr[(table[i] - 1)];
+		arr_new[i] = arr[31-(table[i] - 1)];
 	}
 
 	return arr_new;
@@ -351,30 +365,25 @@ bitset<64> Encoder::String2Bits(string s)
 {
 	string sL = "";
 	sL.insert(sL.begin(), s.begin() + 2, s.begin() + 10);
-	///cout << sL << endl;
 	string sR = "";
 	sR.insert(sR.begin(), s.begin() + 10, s.begin() + 18);
-	///cout << sR << endl;
 
 	stringstream ssL;
 	ssL << hex << sL;
 	unsigned nL;
 	ssL >> nL;
 	bitset<64> bsL(nL);
-	///cout << bsL.to_string() << endl;
 
 	stringstream ssR;
 	ssR << hex << sR;
 	unsigned nR;
 	ssR >> nR;
 	bitset<64> bsR(nR);
-	///cout << bsR.to_string() << endl;
 	bitset<64> bs;
 
 	bsL = bsL << 32;
 	bsL = bsL | bsR;
 
-	///cout << bsL << endl;
 	return bsL;
 }
 string Encoder::Bits2String(bitset<64> bs)

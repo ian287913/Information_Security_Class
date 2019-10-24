@@ -5,11 +5,12 @@ using namespace std;
 ///////////
 //	Encryption
 //	DES
+//	http://page.math.tu-berlin.de/~kant/teaching/hess/krypto-ws2006/des.htm
 ///////////
 
 void Debug(Encoder &encoder)
 {
-	cout << encoder.DES("0xafafafafafafafaf ", "0xabcdef0123456789") << endl;
+	cout << encoder.DES("0x133457799BBCDFF1", "0x0123456789abcdef") << endl;
 	///cout << encoder.Caesar("7", "keepgoingnevergiveup") << "\n";
 	//	RLLWNVPUNULCLYNPCLBW
 }
