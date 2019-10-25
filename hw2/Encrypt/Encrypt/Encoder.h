@@ -231,14 +231,9 @@ bitset<48> Encoder::Expansion(bitset<32> arr, int table[])
 bitset<32> Encoder::FunctionF(bitset<32> R32, bitset<48> K48)
 {
 	bitset<32> result32;
-	//cout << "R0: " << R32.to_string() << endl;
-	//cout << "ER: " << Expansion(R32, E).to_string() << endl;
-
 
 	bitset<48> xor48 = Expansion(R32, E) ^ K48;
-	//cout << "xor48: " << xor48.to_string() << endl;
 	result32 = SBox(xor48);
-	//cout << "SBOX: " << result32.to_string() << endl;
 	result32 = Permutation32(result32, FP);
 
 	return result32;
@@ -259,7 +254,6 @@ bitset<32> Encoder::SBox(bitset<48> bs48)
 		index += bs48[((i * 6) + 5)] * 32;
 
 		bitset<4> map4(S[7-i][index]);
-		//cout << "S" << (7 - i) << ": " << index << " = " << map4 << endl;
 		//	add 4bits to result
 		result32 += map4.to_string();
 	}
@@ -304,7 +298,6 @@ bitset<56> Encoder::KeyRound(bitset<56> bs, int round)
 		bs28 = bs28 >> (28 - 2);
 		D28 = D28 | bs28;
 	}
-
 	return bitset<56>(C28.to_string() + D28.to_string());
 }
 
@@ -359,6 +352,12 @@ bitset<64> Encoder::String2Bits(string s)
 string Encoder::Bits2String(bitset<64> bs)
 {
 	stringstream ss;
-	ss << "0x" << hex << uppercase << bs.to_ullong() << endl;
-	return ss.str();
+	ss << hex << uppercase << bs.to_ullong() << endl;
+	string result = ss.str();
+	while (result.length() <= 16)
+	{
+		result.insert(result.begin(), '0');
+	}
+
+	return "0x" + result;
 }

@@ -9,10 +9,10 @@ using namespace std;
 
 void Debug(Encoder &encoder)
 {
-	cout << encoder.DES("0x133457799BBCDFF1", "0x0123456789abcdef") << endl;
-	//	85E813540F0AB405
-	cout << encoder.DES("0xafafafafafafafaf", "0xabcdef0123456789") << endl;
-	//	85E813540F0AB405
+	cout << encoder.DES("0x133457799BBCDFF1", "0x0123456789abcdef");
+	//	0x85E813540F0AB405
+	cout << encoder.DES("0xafafafafafafafaf", "0xabcdef0123456789");
+	//	0x4C30FC30FB2B0BFF
 }
 
 void main(int argc, char *argv[])
