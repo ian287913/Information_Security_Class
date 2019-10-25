@@ -5,28 +5,6 @@
 #include <sstream>
 using namespace std;
 
-//	Alphabet-Case Transformation
-static string toUpper(string text)
-{
-	for (int i = 0; i < text.size(); i++)
-	{
-		if (text[i] >= 'a' && text[i] <= 'z')
-			text[i] = text[i] + 'A' - 'a';
-	}
-	return text;
-}
-static string toLower(string text)
-{
-	for (int i = 0; i < text.size(); i++)
-	{
-		if (text[i] >= 'A' && text[i] <= 'Z')
-			text[i] = text[i] + 'a' - 'A';
-	}
-	return text;
-}
-
-
-
 class Encoder
 {
 public:
@@ -145,18 +123,12 @@ public:
 };
 
 
-///
-//	Key generation
-//	XOR
-//	Permutation (bits, matrix)
-///
 string Encoder::DES(string _key, string _plaintext)
 {
 
 	///	<L0, R0> Split( InitialPermutation(Plaintext) )
 	bitset<64> bits64 = String2Bits(_plaintext);
 	bits64 = Permutation(bits64, IP);
-	cout << "_PP: " << bits64.to_string() << endl;
 
 	bitset<32> bits32L;
 	bitset<32> bits32R;
@@ -166,21 +138,17 @@ string Encoder::DES(string _key, string _plaintext)
 	///	Transform1( PC-1(Key) )
 
 	bitset<56> key56 = Permutation56(String2Bits(_key));
-	cout << "_KP: " << key56.to_string() << endl;
 
 
 	for (int i = 1; i <= 16; i++)
 	{
 		key56 = KeyRound(key56, i);
 
-		//cout << "Round " << i << ": " << Permutation48(key56).to_string() << endl;
 		bits32L = (bits32L ^ FunctionF(bits32R, Permutation48(key56)));
 
 		Swap32(bits32L, bits32R);
 	}
 	Swap32(bits32L, bits32R);
-
-	///cout << "KEY: " << key56.to_string() << endl;
 
 	string s64 = bits32L.to_string() + bits32R.to_string();
 	bits64 = bitset<64>(s64);
@@ -337,10 +305,6 @@ bitset<56> Encoder::KeyRound(bitset<56> bs, int round)
 		D28 = D28 | bs28;
 	}
 
-
-	/*cout << "Round " << round << ": \n";
-	cout << "C: " << C28.to_string() << endl;
-	cout << "D: " << D28.to_string() << endl;*/
 	return bitset<56>(C28.to_string() + D28.to_string());
 }
 
