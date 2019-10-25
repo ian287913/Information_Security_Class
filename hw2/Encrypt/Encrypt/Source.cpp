@@ -11,8 +11,7 @@ using namespace std;
 void Debug(Encoder &encoder)
 {
 	cout << encoder.DES("0x133457799BBCDFF1", "0x0123456789abcdef") << endl;
-	///cout << encoder.Caesar("7", "keepgoingnevergiveup") << "\n";
-	//	RLLWNVPUNULCLYNPCLBW
+	//	85E813540F0AB405
 }
 
 void main(int argc, char *argv[])
