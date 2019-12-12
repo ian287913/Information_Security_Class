@@ -1,0 +1,4 @@
+﻿  Source.cpp
+c:\ian\githubs\projectforc\information_security_class\hw4\b10615051_孫上晏\rsa_cipher\rsa_cipher\source.cpp(23): warning C4018: '<': signed/unsigned 不相符
+c:\ian\githubs\projectforc\information_security_class\hw4\b10615051_孫上晏\rsa_cipher\rsa_cipher\source.cpp(46): warning C4018: '<': signed/unsigned 不相符
+  RSA_cipher.vcxproj -> C:\ian\Githubs\ProjectForC\Information_Security_Class\HW4\B10615051_孫上晏\RSA_cipher\Debug\RSA_cipher.exe
