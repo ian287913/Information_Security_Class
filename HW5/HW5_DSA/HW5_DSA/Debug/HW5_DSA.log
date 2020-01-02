@@ -1,0 +1,3 @@
+﻿  Main.cpp
+d:\work(will)\school\intro to info security\hw01\information_security_class\hw5\hw5_dsa\hw5_dsa\main.cpp(79): warning C4244: '引數': 將 'time_t' 轉換為 'unsigned int'，由於類型不同，可能導致資料遺失
+  HW5_DSA.vcxproj -> D:\Work(Will)\School\Intro to Info Security\HW01\Information_Security_Class\HW5\HW5_DSA\Debug\HW5_DSA.exe
